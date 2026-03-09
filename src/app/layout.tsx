@@ -15,7 +15,21 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: 'KiitNexus',
-  description: 'Where ambition meets opportunity',
+  description: 'KIIT Nexus is a campus-exclusive digital ecosystem connecting students, builders and innovators inside KIIT.',
+  icons: {
+    icon: '/favicon.png',
+  },
+  openGraph: {
+    title: 'KiitNexus',
+    description: 'KIIT Nexus is a campus-exclusive digital ecosystem connecting students, builders and innovators inside KIIT.',
+    images: ['/favicon.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'KiitNexus',
+    description: 'KIIT Nexus is a campus-exclusive digital ecosystem connecting students, builders and innovators inside KIIT.',
+    images: ['/favicon.png'],
+  },
 }
 
 export default function RootLayout({

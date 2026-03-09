@@ -34,7 +34,7 @@
     opsLead:
       'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408451/ARYAN_KUMAR_LEAD_OPERATIONS_obmshf.png',
     member1:
-      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407136/ABHIGYAN_SINGH_MEMBER_ML_pbgeii.png',
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1772684284/Screenshot_2026-03-05_094727_o2jdwo.png',
     member2:
       'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408401/ANUSHREE_SAXENA_MEMBER_WEB_DEV_aqh1wt.png',
     member3:
@@ -44,7 +44,7 @@
     member5:
       'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
     member6:
-      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771704544/c8ab5fe4-0bf7-4da0-8313-c8495b23fb86.png',
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png',
   }
 
 const founders = [

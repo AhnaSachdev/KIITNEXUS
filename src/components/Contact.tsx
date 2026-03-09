@@ -38,7 +38,7 @@ export default function Contact() {
           <a href="https://github.com/KiitNexus" target="_blank" className="hover:text-white transition">
             <FaGithub />
           </a>
-          <a href="#" target="_blank" className="hover:text-[#0A66C2] transition">
+            <a href="https://www.linkedin.com/company/kiitnexus/" target="_blank" className="hover:text-[#0A66C2] transition">
             <FaLinkedin />
           </a>
           <a href="https://www.instagram.com/kiitnexus?utm_source=qr&igsh=MWk3MGhlZGUxb2syYw==" target="_blank" className="hover:text-pink-500 transition">

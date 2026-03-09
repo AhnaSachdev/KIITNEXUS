@@ -337,7 +337,7 @@ function Navbar() {
 function Ticker() {
   const items = [
     'KIIT NEXUS',
-    'BUILD · SHIP · REPEAT',
+    'INNOVATE · BUILD · REPEAT',
     'CAMPUS-EXCLUSIVE',
     'WHERE AMBITION MEETS OPPORTUNITY',
     'JOIN THE ECOSYSTEM',
@@ -660,9 +660,9 @@ function About() {
               <span className="text-[#FFC20E]">KIIT Nexus</span>?
             </h2>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-              KIIT Nexus is a campus-exclusive digital ecosystem connecting
-              students, builders and innovators inside KIIT. We build real
-              products, ship them, and help each other grow.
+             KIIT Nexus is a campus-exclusive innovation community at KIIT 
+             where passionate students come together to build impactful projects, 
+             learn practically, and support each other&#39;s growth.
             </p>
           </motion.div>
         </div>
@@ -830,7 +830,7 @@ function Projects() {
             className="text-gray-500 text-sm max-w-xs"
             style={{ fontFamily: 'monospace' }}
           >
-            Real products built by Nexus members. Ship something meaningful.
+            Real products built by Nexus members. Build something meaningful.
           </p>
         </div>
       </motion.div>
