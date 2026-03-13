@@ -75,6 +75,7 @@ export default function DisableDevTools() {
     // ── 5. Debugger trap (slows down stepping through code) ────────────────
     // Runs a debug-detection loop every second; a paused debugger causes
     // the setTimeout to fire much later than expected.
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
     const debuggerTrap = () => {
       const start = Date.now()
       // eslint-disable-next-line no-debugger
