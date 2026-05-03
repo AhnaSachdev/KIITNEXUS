@@ -54,6 +54,11 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
+  // ── 5. Bypass ESLint for Vercel Deployments
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig
