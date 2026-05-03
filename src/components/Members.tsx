@@ -212,7 +212,7 @@ const members = [
       'https://www.instagram.com/dark_choxolatte?igsh=MTIzbG9iaTlnZWwybQ==',
   },
   {
-    name: 'Anushka Sinha',
+    name: 'Anuska Sinha',
     role: 'Web Developer',
     img: IMAGES.member3,
     linkedin: 'https://www.linkedin.com/in/anuska-sinha45264/',
@@ -364,16 +364,46 @@ export default function Members() {
   return (
     <section
       id="members"
-      className="relative z-10 py-32 px-4 max-w-7xl mx-auto"
+      className="relative z-10 py-32 px-4 md:px-16 max-w-7xl mx-auto"
     >
-      <div className="text-center mb-20">
-        <span className="px-4 py-2 rounded-full bg-white/10 text-sm text-gray-300 border border-white/10 mb-6 inline-block">
-          THE TEAM
-        </span>
-        <h2 className="text-5xl md:text-7xl font-bold text-white">
-          Meet the <span className="text-[#FFC20E]">Nexus</span>
-        </h2>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="mb-12 md:mb-20"
+      >
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px w-8 bg-[#FFC20E]" />
+          <span
+            className="text-[#FFC20E] text-xs font-bold tracking-[0.3em] uppercase"
+            style={{ fontFamily: 'monospace' }}
+          >
+            The Team
+          </span>
+        </div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
+          <h2
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] md:leading-tight tracking-tight"
+            style={{ fontFamily: "'DM Sans', sans-serif" }}
+          >
+            Meet the
+            <br />
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: 'max(1px, 0.05em) rgba(255,194,14,0.6)' }}
+            >
+              Nexus
+            </span>
+          </h2>
+          <p
+            className="text-gray-500 text-sm max-w-xs"
+            style={{ fontFamily: 'monospace' }}
+          >
+            The builders, designers, and innovators behind our community.
+          </p>
+        </div>
+      </motion.div>
 
       <div className="flex flex-col items-center">
         <div className="flex flex-wrap justify-center gap-8 relative z-10">
