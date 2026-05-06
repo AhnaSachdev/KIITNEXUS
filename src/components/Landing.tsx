@@ -983,7 +983,7 @@ export default function Landing() {
       <About />
       <GroupPhoto />
       <Projects />
-      <Members />
+      <Members isHomepage={true} />
       <Contact />
     </div>
   )

@@ -1,8 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
+import Link from 'next/link'
 
 const IMAGES = {
   founder:
@@ -254,6 +256,22 @@ const members = [
   },
 ]
 
+const getDomainName = (role: string) => {
+  return role.replace(' Lead', '').replace('Designer', 'Design')
+}
+
+const getDomainMembers = (leadRole: string) => {
+  if (leadRole.includes('Web')) return members.filter(m => m.role.includes('Web'))
+  if (leadRole.includes('Machine Learning') || leadRole.includes('ML')) return members.filter(m => m.role.includes('Machine Learning') || m.role.includes('ML'))
+  if (leadRole.includes('Broadcast')) return members.filter(m => m.role.includes('Broadcast'))
+  if (leadRole.includes('Android')) return members.filter(m => m.role.includes('Android'))
+  if (leadRole.includes('Flutter')) return members.filter(m => m.role.includes('Flutter'))
+  if (leadRole.includes('Design')) return members.filter(m => m.role.includes('Design'))
+  if (leadRole.includes('Market')) return members.filter(m => m.role.includes('Market'))
+  if (leadRole.includes('Operat')) return members.filter(m => m.role.includes('Operat'))
+  return []
+}
+
 interface MemberNodeProps {
   name: string
   role: string
@@ -265,7 +283,6 @@ interface MemberNodeProps {
   instagram?: string
 }
 
-/** SECURITY FIX: only open external links with rel="noopener noreferrer" */
 function safeTarget(href?: string) {
   if (!href || href === '#')
     return {
@@ -289,15 +306,14 @@ const MemberNode = ({
 }: MemberNodeProps) => (
   <motion.div
     whileHover={{ y: -6 }}
-    className="relative group overflow-hidden rounded-2xl border backdrop-blur-md transition-all duration-300 bg-white/5 border-white/10 w-60 hover:border-[#FFC20E]/60"
+    className="relative group overflow-hidden rounded-2xl border backdrop-blur-md transition-all duration-300 bg-white/5 border-white/10 w-60 hover:border-[#FFC20E]/60 flex flex-col h-full"
   >
-    {/* Portrait */}
-    <div className="relative w-full aspect-[3/4] overflow-hidden">
+    <div className="relative w-full aspect-[3/4] overflow-hidden flex-shrink-0">
       {img ? (
         <img
           src={img}
           alt={`${name} – ${role}`}
-          loading="lazy" /* PERFORMANCE FIX: lazy-load off-screen images */
+          loading="lazy"
           decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125"
           style={{ objectPosition: pos }}
@@ -308,8 +324,7 @@ const MemberNode = ({
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
     </div>
 
-    {/* Info */}
-    <div className="p-4 text-center bg-black/85 border-t border-white/5">
+    <div className="p-4 text-center bg-black/85 border-t border-white/5 flex-grow flex flex-col justify-center">
       <h3 className="font-semibold text-white text-lg leading-tight">{name}</h3>
       <p className="mt-1 text-[#FFC20E] text-xs uppercase tracking-widest">
         {role}
@@ -353,6 +368,97 @@ const MemberNode = ({
   </motion.div>
 )
 
+const DomainMember = ({ member, isExpanded, onClick }: { member: any, isExpanded: boolean, onClick: () => void }) => {
+  return (
+    <motion.div
+      layout
+      onClick={onClick}
+      className={`relative group overflow-hidden border backdrop-blur-md bg-white/5 border-white/10 flex-shrink-0 cursor-pointer flex flex-col transition-all duration-300 hover:border-[#FFC20E]/60 ${
+        isExpanded ? 'w-60 rounded-2xl' : 'w-16 sm:w-20 rounded-full'
+      }`}
+    >
+      <motion.div 
+        layout 
+        className={`relative w-full overflow-hidden flex-shrink-0 ${isExpanded ? 'aspect-[3/4]' : 'flex-grow'}`}
+      >
+        {member.img ? (
+          <img
+            src={member.img}
+            alt={member.name}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125"
+            style={{ objectPosition: member.pos || 'center 18%' }}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-800 to-black" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+      </motion.div>
+
+      <AnimatePresence mode="wait">
+        {isExpanded && (
+          <motion.div 
+            layout 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="text-center bg-black/85 flex-grow border-t border-white/5 p-4 flex flex-col justify-center"
+          >
+            <h3 className="font-semibold text-white text-lg leading-tight truncate">{member.name}</h3>
+            <p className="mt-1 text-[#FFC20E] text-xs uppercase tracking-widest truncate">
+              {member.role}
+            </p>
+            <div className="flex justify-center gap-4 mt-3 text-lg text-gray-300">
+              {member.github && member.github !== '#' && (
+                <a href={member.github} {...safeTarget(member.github)} onClick={e => e.stopPropagation()}>
+                  <FaGithub className="hover:text-white hover:scale-125 transition" />
+                </a>
+              )}
+              {member.linkedin && member.linkedin !== '#' && (
+                <a href={member.linkedin} {...safeTarget(member.linkedin)} onClick={e => e.stopPropagation()}>
+                  <FaLinkedin className="hover:text-[#0A66C2] hover:scale-125 transition" />
+                </a>
+              )}
+              {member.mail && member.mail !== '#' && (
+                <a href={`mailto:${member.mail}`} onClick={e => e.stopPropagation()}>
+                  <MdEmail className="hover:text-yellow-400 hover:scale-125 transition" />
+                </a>
+              )}
+              {member.instagram && member.instagram !== '#' && (
+                <a href={member.instagram} {...safeTarget(member.instagram)} onClick={e => e.stopPropagation()}>
+                  <FaInstagram className="hover:text-pink-500 hover:scale-125 transition" />
+                </a>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
+const DomainGroup = ({ lead, members }: { lead: any, members: any[] }) => {
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+
+  return (
+    <div className="flex flex-row gap-4 overflow-x-auto pb-4 pt-1 items-stretch max-w-full">
+      <div className="flex-shrink-0">
+        <MemberNode {...lead} />
+      </div>
+      {members.map((m, i) => (
+        <DomainMember
+          key={i}
+          member={m}
+          isExpanded={expandedId === i}
+          onClick={() => setExpandedId(expandedId === i ? null : i)}
+        />
+      ))}
+    </div>
+  )
+}
+
 const Connector = ({ height = 'h-16' }) => (
   <div
     className={`w-0.5 ${height} bg-gradient-to-b from-[#FFC20E] to-white/10 mx-auto opacity-50`}
@@ -360,18 +466,18 @@ const Connector = ({ height = 'h-16' }) => (
   />
 )
 
-export default function Members() {
+export default function Members({ isHomepage = false }: { isHomepage?: boolean }) {
   return (
     <section
       id="members"
-      className="relative z-10 py-32 px-4 md:px-16 max-w-7xl mx-auto"
+      className="relative z-10 py-32 px-4 md:px-16 max-w-7xl mx-auto w-full flex flex-col items-center"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="mb-12 md:mb-20"
+        className="mb-12 md:mb-20 w-full"
       >
         <div className="flex items-center gap-3 mb-6">
           <div className="h-px w-8 bg-[#FFC20E]" />
@@ -405,8 +511,8 @@ export default function Members() {
         </div>
       </motion.div>
 
-      <div className="flex flex-col items-center">
-        <div className="flex flex-wrap justify-center gap-8 relative z-10">
+      <div className="flex flex-col items-center w-full">
+        <div className="flex flex-wrap justify-center gap-8 relative z-10 w-full">
           {founders.map((f, i) => (
             <MemberNode key={i} {...f} />
           ))}
@@ -414,7 +520,7 @@ export default function Members() {
 
         <Connector height="h-24" />
 
-        <div className="relative p-6 border border-white/5 rounded-3xl bg-white/[0.02] w-full max-w-5xl">
+        <div className="relative p-6 border border-white/5 rounded-3xl bg-white/[0.02] w-full max-w-5xl mx-auto">
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black px-4 text-xs text-gray-500 uppercase tracking-widest border border-white/10 rounded-full">
             Technical Heads
           </span>
@@ -425,47 +531,55 @@ export default function Members() {
           </div>
         </div>
 
-        <Connector height="h-24" />
-
-        <div className="w-full relative p-8 border-t border-white/10">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black px-4 text-xs text-[#FFC20E] font-bold uppercase tracking-widest border border-[#FFC20E]/20 rounded-full">
-            Domain Leads
+        {isHomepage ? (
+          <div className="mt-12 md:mt-16 flex justify-center w-full">
+            <Link
+              href="/members"
+              className="px-6 md:px-8 py-3 md:py-4 border border-[#FFC20E]/50 text-white font-bold text-xs md:text-sm tracking-widest uppercase rounded-sm hover:bg-[#FFC20E] hover:text-black transition-colors"
+              style={{ fontFamily: 'monospace' }}
+            >
+              Meet The Team ➔
+            </Link>
           </div>
-          <h3 className="text-center text-white/50 mb-8 text-sm uppercase tracking-widest">
-            Technical Domain
-          </h3>
-          <div className="flex flex-wrap justify-center gap-6">
-            {techLeads.map((l, i) => (
-              <MemberNode key={i} {...l} />
-            ))}
-          </div>
-        </div>
+        ) : (
+          <>
+            <Connector height="h-24" />
 
-        <Connector height="h-12" />
+            <div className="w-full relative p-8 border-t border-white/10 flex flex-col items-center">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black px-4 text-xs text-[#FFC20E] font-bold uppercase tracking-widest border border-[#FFC20E]/20 rounded-full">
+                Technical Domain
+              </div>
+              <div className="w-full max-w-6xl flex flex-col gap-12 mt-8">
+                {techLeads.map((lead, i) => (
+                  <div key={i} className="flex flex-col gap-4">
+                    <h4 className="text-2xl md:text-3xl font-bold text-white tracking-wide uppercase border-l-4 border-[#FFC20E] pl-4">
+                      {getDomainName(lead.role)}
+                    </h4>
+                    <DomainGroup lead={lead} members={getDomainMembers(lead.role)} />
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <div className="w-full p-8">
-          <h3 className="text-center text-white/50 mb-8 text-sm uppercase tracking-widest">
-            Non-Technical Domain
-          </h3>
-          <div className="flex flex-wrap justify-center gap-6">
-            {nonTechLeads.map((l, i) => (
-              <MemberNode key={i} {...l} />
-            ))}
-          </div>
-        </div>
+            <Connector height="h-16" />
 
-        <Connector height="h-24" />
-
-        <div className="w-full relative p-8 border border-white/5 rounded-3xl bg-white/[0.02]">
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black px-4 text-xs text-gray-500 uppercase tracking-widest border border-white/10 rounded-full">
-            Core Team
-          </span>
-          <div className="flex flex-wrap justify-center gap-6">
-            {members.map((m, i) => (
-              <MemberNode key={i} {...m} />
-            ))}
-          </div>
-        </div>
+            <div className="w-full relative p-8 border-t border-white/10 flex flex-col items-center">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black px-4 text-xs text-gray-400 font-bold uppercase tracking-widest border border-white/20 rounded-full">
+                Non-Technical Domain
+              </div>
+              <div className="w-full max-w-6xl flex flex-col gap-12 mt-8">
+                {nonTechLeads.map((lead, i) => (
+                  <div key={i} className="flex flex-col gap-4">
+                    <h4 className="text-2xl md:text-3xl font-bold text-white tracking-wide uppercase border-l-4 border-[#FFC20E] pl-4">
+                      {getDomainName(lead.role)}
+                    </h4>
+                    <DomainGroup lead={lead} members={getDomainMembers(lead.role)} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   )
