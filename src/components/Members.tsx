@@ -47,6 +47,13 @@ const IMAGES = {
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
   member6:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png',
+  member7:
+    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778030836/Aditya_Tiwari_cogqsi.png',
+  member8:
+    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778032744/astha_kashyap_f99kuh.png',
+  member9:'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033172/51671.jpg_1_brlqp0.jpg',
+  member10:'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033193/Screenshot_20260503_191359_Snapchat_vaqpgm.png',
+  member11:'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033252/Gemini_Generated_Image_q46z6vq46z6vq46z_disbsu.png',
 }
 
 const founders = [
@@ -245,6 +252,33 @@ const members = [
     instagram:
       'https://www.instagram.com/silvershades_48?igsh=aDhiOXh1cjFuOGI4',
   },
+   {
+    name: 'Aditya Tiwari',
+    role: 'Machine Learning',
+    img: IMAGES.member7,
+    linkedin:'https://www.linkedin.com/in/aditya-tiwari-716272316',
+    github: 'https://github.com/agreedfiction',
+    mail: '24158033@kiit.ac.in',
+    instagram: 'https://www.instagram.com/aditya.tiwari05?igsh=MmIxemo0Y3NqMGpk',
+  },
+   {
+    name: 'Sougata Kundu ',
+    role: 'Machine Learning',
+    img: IMAGES.member9,
+    linkedin:'https://www.linkedin.com/in/dxsougata',
+    github: 'https://github.com/dxsougata',
+    mail: '24155737@kiit.ac.in',
+    instagram: 'https://www.instagram.com/dx_sougata?igsh=MXZ5NGFyYWE2ZDY2OQ==',
+  },
+  {
+    name: 'Astha Kashyap',
+    role: 'Flutter Developer',
+    img: IMAGES.member8,
+    linkedin:'https://www.linkedin.com/in/astha-kashyap-ab8b51272/',
+    github: 'https://github.com/astha-innov',
+    mail: 'astha.04122005@gmail.com',
+    instagram: ' https://www.instagram.com/astha0407',
+  },
   {
     name: 'Sipra Mishra',
     role: 'Broadcasting',
@@ -253,6 +287,24 @@ const members = [
     github: '#',
     mail: '#',
     instagram: '#',
+  },
+  {
+    name: ' Shruti Jha',
+    role: 'Flutter Development',
+    img: IMAGES.member10,
+    linkedin: '#',
+    github: 'https://github.com/shruti01221',
+    mail: 'jhashruti0110@gmail.com',
+    instagram: 'https://www.instagram.com/shruti__jha007?igsh=MXMydzJwbzV4M2hibQ==',
+  },
+  {
+    name: ' Ahna Sachdev',
+    role: 'Web Development',
+    img: IMAGES.member11,
+    linkedin: 'https://www.linkedin.com/in/ahna-sachdev/',
+    github: 'https://github.com/AhnaSachdev',
+    mail: '2405784@kiit.ac.in',
+    instagram: 'https://www.instagram.com/ahnasachdev/',
   },
 ]
 
