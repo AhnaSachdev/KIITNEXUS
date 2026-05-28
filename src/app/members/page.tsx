@@ -1,26 +1,14 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Glow from '@/components/Glow'
 import Link from 'next/link'
 import Members from '@/components/Members'
 
-interface ParticleType {
-  x: number
-  y: number
-  vx: number
-  vy: number
-  size: number
-  update: () => void
-  draw: () => void
-}
-
 function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const particles = useRef<ParticleType[]>([])
+  const animRef = useRef<number>()
   const mouse = useRef({ x: -9999, y: -9999 })
-  const animationRef = useRef<number>()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -36,86 +24,74 @@ function ParticlesBackground() {
     window.addEventListener('resize', resize)
 
     class Particle {
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      constructor() {
-        this.x = Math.random() * (canvas?.width ?? 0)
-        this.y = Math.random() * (canvas?.height ?? 0)
-        this.vx = (Math.random() - 0.5) * 0.4
-        this.vy = (Math.random() - 0.5) * 0.4
-        this.size = Math.random() * 1.5 + 0.5
-      }
+      x = Math.random() * canvas.width
+      y = Math.random() * canvas.height
+      vx = (Math.random() - 0.5) * 0.4
+      vy = (Math.random() - 0.5) * 0.4
+      size = Math.random() * 1.5 + 0.5
       update() {
         this.x += this.vx
         this.y += this.vy
-        if (canvas) {
-          if (this.x < 0 || this.x > canvas.width) this.vx *= -1
-          if (this.y < 0 || this.y > canvas.height) this.vy *= -1
-        }
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1
       }
       draw() {
-        if (!ctx) return
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(255,255,255,0.4)'
-        ctx.fill()
+        ctx!.beginPath()
+        ctx!.arc(this.x, this.y, this.size, 0, Math.PI * 2)
+        ctx!.fillStyle = 'rgba(255,255,255,0.35)'
+        ctx!.fill()
       }
     }
 
-    const particleCount = window.innerWidth < 768 ? 80 : 280
-    particles.current = Array.from(
-      { length: particleCount },
+    const particles = Array.from(
+      { length: window.innerWidth < 768 ? 60 : 200 },
       () => new Particle(),
     )
-
-    const handleMouseMove = (e: MouseEvent) => {
+    const onMouseMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY }
     }
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', onMouseMove)
 
     const animate = () => {
-      if (!ctx) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.current.forEach((p) => {
+      particles.forEach((p) => {
         p.update()
         p.draw()
       })
-      particles.current.forEach((p1, i) => {
-        particles.current.slice(i + 1).forEach((p2) => {
+      particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach((p2) => {
           const dx = p1.x - p2.x,
-            dy = p1.y - p2.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 130) {
+            dy = p1.y - p2.y,
+            d = Math.sqrt(dx * dx + dy * dy)
+          if (d < 120) {
             ctx.beginPath()
             ctx.moveTo(p1.x, p1.y)
             ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = `rgba(255,255,255,${0.1 * (1 - dist / 130)})`
+            ctx.strokeStyle = `rgba(255,255,255,${0.08 * (1 - d / 120)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
         })
         const dx = p1.x - mouse.current.x,
-          dy = p1.y - mouse.current.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 180) {
+          dy = p1.y - mouse.current.y,
+          d = Math.sqrt(dx * dx + dy * dy)
+        if (d < 160) {
           ctx.beginPath()
           ctx.moveTo(p1.x, p1.y)
           ctx.lineTo(mouse.current.x, mouse.current.y)
-          ctx.strokeStyle = `rgba(255,194,14,${0.45 * (1 - dist / 180)})`
+          ctx.strokeStyle = `rgba(255,194,14,${0.4 * (1 - d / 160)})`
           ctx.lineWidth = 1
           ctx.stroke()
         }
       })
-      animationRef.current = requestAnimationFrame(animate)
+      animRef.current = requestAnimationFrame(animate)
     }
     animate()
+
     return () => {
       window.removeEventListener('resize', resize)
-      window.removeEventListener('mousemove', handleMouseMove)
-      if (animationRef.current) cancelAnimationFrame(animationRef.current)
+      window.removeEventListener('mousemove', onMouseMove)
+      if (animRef.current) cancelAnimationFrame(animRef.current)
     }
   }, [])
 
@@ -128,6 +104,28 @@ function ParticlesBackground() {
   )
 }
 
+function Glow() {
+  return (
+    <>
+      <div
+        className="fixed top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none"
+        style={{
+          zIndex: 0,
+          background:
+            'radial-gradient(circle, rgba(255,194,14,0.04) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="fixed bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none"
+        style={{
+          zIndex: 0,
+          background:
+            'radial-gradient(circle, rgba(255,194,14,0.03) 0%, transparent 70%)',
+        }}
+      />
+    </>
+  )
+}
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -145,7 +143,6 @@ function Navbar() {
     { label: 'Members', id: 'members', isRoute: true },
     { label: 'Opportunities', id: 'opportunities', isRoute: false },
   ]
-  const activeLink = 'members'
 
   return (
     <>
@@ -153,15 +150,9 @@ function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-10 transition-all duration-700 ${scrolled
-            ? 'py-4 bg-black/85 backdrop-blur-2xl border-b border-[#FFC20E]/10'
-            : 'py-7 bg-transparent'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-10 transition-all duration-700 ${scrolled ? 'py-4 bg-black/85 backdrop-blur-2xl border-b border-[#FFC20E]/10' : 'py-7 bg-transparent'}`}
       >
-        <Link
-          href="/"
-          className="flex items-center gap-3 group"
-        >
+        <Link href="/" className="flex items-center gap-3 group">
           <img
             src="https://res.cloudinary.com/da9zvp0mu/image/upload/v1771705575/WhatsApp_Image_2026-02-22_at_1.46.53_AM-removebg-preview_rcftja.png"
             alt="KIIT Nexus"
@@ -183,17 +174,13 @@ function Navbar() {
           </div>
         </Link>
 
-        {/* LINKS */}
         <div className="flex items-center gap-1 bg-black/50 border border-white/10 rounded-full px-2 py-1.5 backdrop-blur-xl shadow-2xl">
           {links.map((link) =>
             link.isRoute ? (
               <Link
                 key={link.id}
                 href={`/${link.id}`}
-                className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border ${activeLink === link.id
-                    ? 'text-[#FFC20E] bg-white/5 border-[#FFC20E]/30 shadow-[0_0_15px_rgba(255,194,14,0.15)]'
-                    : 'text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10'
-                  }`}
+                className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border ${link.id === 'members' ? 'text-[#FFC20E] bg-white/5 border-[#FFC20E]/30 shadow-[0_0_15px_rgba(255,194,14,0.15)]' : 'text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10'}`}
                 style={{ fontFamily: 'monospace' }}
               >
                 {link.label}
@@ -202,12 +189,12 @@ function Navbar() {
               <Link
                 key={link.id}
                 href={`/#${link.id}`}
-                className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10`}
+                className="relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10"
                 style={{ fontFamily: 'monospace' }}
               >
                 {link.label}
               </Link>
-            )
+            ),
           )}
         </div>
 
@@ -226,12 +213,8 @@ function Navbar() {
         </Link>
       </motion.nav>
 
-      {/* MOBILE NAV */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 bg-black/90 backdrop-blur-xl border-b border-white/5 shadow-xl">
-        <Link
-          href="/"
-          className="flex items-center gap-2"
-        >
+        <Link href="/" className="flex items-center gap-2">
           <img
             src="https://res.cloudinary.com/da9zvp0mu/image/upload/v1771705575/WhatsApp_Image_2026-02-22_at_1.46.53_AM-removebg-preview_rcftja.png"
             alt="KIIT Nexus"
@@ -279,7 +262,7 @@ function Navbar() {
                   key={l.id}
                   href={`/${l.id}`}
                   onClick={() => setMenuOpen(false)}
-                  className={`text-xs tracking-widest uppercase transition-colors ${activeLink === l.id ? 'text-[#FFC20E]' : 'text-gray-400 hover:text-[#FFC20E]'}`}
+                  className={`text-xs tracking-widest uppercase transition-colors ${l.id === 'members' ? 'text-[#FFC20E]' : 'text-gray-400 hover:text-[#FFC20E]'}`}
                   style={{ fontFamily: 'monospace' }}
                 >
                   {l.label}
@@ -294,7 +277,7 @@ function Navbar() {
                 >
                   {l.label}
                 </Link>
-              )
+              ),
             )}
           </motion.div>
         )}
@@ -303,17 +286,14 @@ function Navbar() {
   )
 }
 
-
-
 export default function AllMembersPage() {
   return (
     <div className="bg-black text-white selection:bg-[#FFC20E]/30 min-h-screen overflow-x-hidden w-full relative">
       <ParticlesBackground />
       <Glow />
       <Navbar />
-
       <div className="pt-20">
-        <Members />
+        <Members isHomepage={false} />
       </div>
     </div>
   )

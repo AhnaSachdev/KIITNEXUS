@@ -1,49 +1,59 @@
+// src/components/images.config.ts
 
-// CLOUDINARY IMAGE CONFIG
-// All images are served from Cloudinary.
-// Replace the URLs below with your actual Cloudinary URLs.
-// Format: https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/YOUR_IMAGE_ID
-
-
- const images = {
-  // ---- LANDING PAGE ----
-  groupPhoto: 'https://res.cloudinary.com/your_cloud_name/image/upload/group_photo',
-  downloadImage: 'https://res.cloudinary.com/your_cloud_name/image/upload/download_image',
-
-  // ---- BACKGROUND SLIDESHOW ----
+export const images = {
+  // Hero campus slideshow — using member images as fallback until you upload campus photos
   campus: [
-    'https://res.cloudinary.com/your_cloud_name/image/upload/campus1',
-    'https://res.cloudinary.com/your_cloud_name/image/upload/campus2',
-    'https://res.cloudinary.com/your_cloud_name/image/upload/campus3',
-    'https://res.cloudinary.com/your_cloud_name/image/upload/group1',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408453/IPSIT_DAS_LEAD_MARKETING_mpoklh.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408452/ANUSKA_SINHA_MEMBER_WEB_DEV_tipyrt.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408451/ARYAN_KUMAR_LEAD_OPERATIONS_obmshf.png',
   ],
 
-  // ---- ABOUT SECTION ----
+  // Group photo — using a member image as fallback until you upload the group photo
+  groupPhoto:
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408401/ANUSHREE_SAXENA_MEMBER_WEB_DEV_aqh1wt.png',
+
+  // About section — using member images as fallback until you upload about images
   about: {
-    branding: 'https://res.cloudinary.com/your_cloud_name/image/upload/branding',
-    design: 'https://res.cloudinary.com/your_cloud_name/image/upload/design',
-    development: 'https://res.cloudinary.com/your_cloud_name/image/upload/development',
+    branding:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408452/ANUSKA_SINHA_MEMBER_WEB_DEV_tipyrt.png',
+    design:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407146/SHIVAM_TECHNICAL_HEAD_tvgbiu.png',
+    development:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407147/SHRIDIPA_DHAR_LEAD_ML_t6kwms.png',
   },
 
-  // ---- MEMBERS ----
+  // Member photos — your actual Cloudinary URLs (DO NOT CHANGE)
   members: {
-    founder: 'https://res.cloudinary.com/your_cloud_name/image/upload/founder',
-    techHead1: 'https://res.cloudinary.com/your_cloud_name/image/upload/tech_head_1',
-    techHead2: 'https://res.cloudinary.com/your_cloud_name/image/upload/tech_head_2',
-    techHead3: 'https://res.cloudinary.com/your_cloud_name/image/upload/tech_head_3',
-    webLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/web_lead',
-    androidLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/android_lead',
-    flutterLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/flutter_lead',
-    //cloudLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/cloud_lead',
-    mlLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/ml_lead',
-    designLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/design_lead',
-    broadcastLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/broadcast_lead',
-    marketingLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/marketing_lead',
-    opsLead: 'https://res.cloudinary.com/your_cloud_name/image/upload/ops_lead',
-    // Placeholder images for core members (male/female or generic)
-    member1: 'https://res.cloudinary.com/your_cloud_name/image/upload/member_1',
-    member2: 'https://res.cloudinary.com/your_cloud_name/image/upload/member_2',
+    founder:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
+    techHead1:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408453/IPSIT_DAS_LEAD_MARKETING_mpoklh.png',
+    techHead2:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408452/ANUSKA_SINHA_MEMBER_WEB_DEV_tipyrt.png',
+    techHead3:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408451/ARYAN_KUMAR_LEAD_OPERATIONS_obmshf.png',
+    webLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408401/ANUSHREE_SAXENA_MEMBER_WEB_DEV_aqh1wt.png',
+    androidLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407151/SUBHAM_DUTTA_MEMBER_ML_p5xdv9.png',
+    flutterLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407147/SHRIDIPA_DHAR_LEAD_ML_t6kwms.png',
+    designLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407146/SHIVAM_TECHNICAL_HEAD_tvgbiu.png',
+    cloudLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407141/NISTHA_MISHRA_TECHNICAL_HEAD_kfy6yp.png',
+    mlLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407140/ISHIKA_JAISWAL_TECHNICAL_HEAD_yonvki.png',
+    broadcastLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407141/NISTHA_MISHRA_TECHNICAL_HEAD_kfy6yp.png',
+    marketingLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407140/ISHIKA_JAISWAL_TECHNICAL_HEAD_yonvki.png',
+    opsLead:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407141/NISTHA_MISHRA_TECHNICAL_HEAD_kfy6yp.png',
+    member1:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407141/NISTHA_MISHRA_TECHNICAL_HEAD_kfy6yp.png',
+    member2:
+      'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407140/ISHIKA_JAISWAL_TECHNICAL_HEAD_yonvki.png',
   },
 }
-
-export default images;

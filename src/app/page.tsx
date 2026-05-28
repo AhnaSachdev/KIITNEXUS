@@ -1,14 +1,4 @@
-// 'use client'
 
-// import Landing from '@/components/Landing'
-
-// export default function Home() {
-//   return (
-//     <div className="w-full overflow-x-hidden">
-//       <Landing />
-//     </div>
-//   )
-// }
 'use client'
 
 import Landing from '@/components/Landing'
