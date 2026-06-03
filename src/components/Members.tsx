@@ -36,7 +36,7 @@ const IMAGES = {
   member1:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1772684284/Screenshot_2026-03-05_094727_o2jdwo.png',
   member2:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408401/ANUSHREE_SAXENA_MEMBER_WEB_DEV_aqh1wt.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780502303/8ccde8a8-6db9-4620-adad-799a352e53ca.png', // Anushree Saxena
   member3:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408452/ANUSKA_SINHA_MEMBER_WEB_DEV_tipyrt.png',
   member4:
@@ -44,17 +44,19 @@ const IMAGES = {
   member5:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
   member6:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png', // Broadcasting Team (Sipra Mishra)
   member7:
-    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778030836/Aditya_Tiwari_cogqsi.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055531/409536f4-94ae-445d-bc8d-4226da1d4608.png', // Aditya Tiwari
   member8:
     'https://res.cloudinary.com/dejfuiizz/image/upload/v1778032744/astha_kashyap_f99kuh.png',
   member9:
     'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033172/51671.jpg_1_brlqp0.jpg',
   member10:
-    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033193/Screenshot_20260503_191359_Snapchat_vaqpgm.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055945/d37efd9d-d418-4fdc-a776-0aa64f1a4801.png', // Shruti Jha
   member11:
     'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033252/Gemini_Generated_Image_q46z6vq46z6vq46z_disbsu.png',
+  member12:
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780501632/9e962368-d92b-47a4-87f8-f8a5205b898e.png',
 }
 
 const founders = [
@@ -264,17 +266,8 @@ const members = [
       'https://www.instagram.com/aditya.tiwari05?igsh=MmIxemo0Y3NqMGpk',
   },
   {
-    name: 'Sougata Kundu',
-    role: 'Machine Learning',
-    img: IMAGES.member9,
-    linkedin: 'https://www.linkedin.com/in/dxsougata',
-    github: 'https://github.com/dxsougata',
-    mail: '24155737@kiit.ac.in',
-    instagram: 'https://www.instagram.com/dx_sougata?igsh=MXZ5NGFyYWE2ZDY2OQ==',
-  },
-  {
     name: 'Astha Kashyap',
-    role: 'Flutter Developer',
+    role: 'Android Developer',
     img: IMAGES.member8,
     linkedin: 'https://www.linkedin.com/in/astha-kashyap-ab8b51272/',
     github: 'https://github.com/astha-innov',
@@ -309,6 +302,18 @@ const members = [
     mail: '2405784@kiit.ac.in',
     instagram: 'https://www.instagram.com/ahnasachdev/',
   },
+
+  {
+    name: 'Gungun Raj',
+    role: 'Broadcasting',
+    img: IMAGES.member12,
+    linkedin: 'https://www.linkedin.com/in/gungun-raj-565b2a3a2?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+    github: '',
+    mail: '2405279@kiit.ac.in',
+    instagram: 'https://www.instagram.com/gungun_raj_19?igsh=MTN5aHNidGc1NTYzbA%3D%3D&utm_source=qr',
+  },
+
+  
 ]
 
 // All portrait images collected for the hero strip
