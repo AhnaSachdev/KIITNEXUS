@@ -49,8 +49,6 @@ const IMAGES = {
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055531/409536f4-94ae-445d-bc8d-4226da1d4608.png', // Aditya Tiwari
   member8:
     'https://res.cloudinary.com/dejfuiizz/image/upload/v1778032744/astha_kashyap_f99kuh.png',
-  member9:
-    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033172/51671.jpg_1_brlqp0.jpg',
   member10:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055945/d37efd9d-d418-4fdc-a776-0aa64f1a4801.png', // Shruti Jha
   member11:
@@ -339,6 +337,9 @@ const allPortraits = [
   IMAGES.member6,
   IMAGES.member7,
   IMAGES.member8,
+  IMAGES.member10,
+  IMAGES.member11,
+  IMAGES.member12,
 ]
 
 function safeTarget(href?: string) {
