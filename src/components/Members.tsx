@@ -52,7 +52,7 @@ const IMAGES = {
   member10:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055945/d37efd9d-d418-4fdc-a776-0aa64f1a4801.png', // Shruti Jha
   member11:
-    'https://res.cloudinary.com/dejfuiizz/image/upload/v1778033252/Gemini_Generated_Image_q46z6vq46z6vq46z_disbsu.png',
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780556222/a1916b60-560f-465e-a324-425b28b47810.png',
   member12:
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780501632/9e962368-d92b-47a4-87f8-f8a5205b898e.png',
 }
@@ -306,7 +306,7 @@ const members = [
     role: 'Broadcasting',
     img: IMAGES.member12,
     linkedin: 'https://www.linkedin.com/in/gungun-raj-565b2a3a2?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
-    github: '',
+    github: 'https://github.com/gungunraj19-collab',
     mail: '2405279@kiit.ac.in',
     instagram: 'https://www.instagram.com/gungun_raj_19?igsh=MTN5aHNidGc1NTYzbA%3D%3D&utm_source=qr',
   },
@@ -336,9 +336,9 @@ const allPortraits = [
   IMAGES.member5,
   IMAGES.member6,
   IMAGES.member7,
+  IMAGES.member11,
   IMAGES.member8,
   IMAGES.member10,
-  IMAGES.member11,
   IMAGES.member12,
 ]
 
