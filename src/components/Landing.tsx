@@ -6,21 +6,27 @@ import { FiExternalLink, FiUsers, FiUser } from 'react-icons/fi'
 import Members from './Members'
 import Glow from './Glow'
 import Contact from '@/components/Contact'
-
+import Link from 'next/link'
 const HERO_IMAGES = [
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407136/ABHISHEK_DHAL_FOUNDER_COORDINATOR_abjldw.png',
-  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407136/ADITYA_VIKRAM_SINGH_CO-|ER_it2ovu.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407136/ADITYA_VIKRAM_SINGH_CO-FOUNDER_it2ovu.png',
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407141/NISTHA_MISHRA_TECHNICAL_HEAD_kfy6yp.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407146/SHIVAM_TECHNICAL_HEAD_tvgbiu.png',
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407140/ISHIKA_JAISWAL_TECHNICAL_HEAD_yonvki.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407139/CHANDAN_KUMAR_LEAD_WEB_DEV_uzuvtu.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407138/ANANYA_RAJ_LEAD_APP_DEV_FLUTTER_dhsacs.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407138/ANURAG_MUKHERJEE_LEAD_APP_DEV_ANDROID_vex2is.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407147/SHRIDIPA_DHAR_LEAD_ML_t6kwms.png',
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408451/ARYAN_KUMAR_LEAD_OPERATIONS_obmshf.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407143/OWAIS_LEAD_GRAPHIC_DESIGNING_k9rl0p.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771407145/SAYAN_BARMAN_LEAD_BROADCASTING_auk8zp.png',
+  'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408453/IPSIT_DAS_LEAD_MARKETING_mpoklh.png',
 ]
 
 const GROUP_PHOTO =
   'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771788848/74b1aa3b-dfcd-4bc6-91df-d17dd8af361f.png'
 
-// ============================================
-// PARTICLE NETWORK BACKGROUND
-// ============================================
+
 interface ParticleType {
   x: number
   y: number
@@ -143,9 +149,7 @@ function ParticlesBackground() {
   )
 }
 
-// ============================================
-// UNIQUE NAVBAR
-// ============================================
+
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState('')
@@ -169,10 +173,10 @@ function Navbar() {
   }
 
   const links = [
-    { label: 'About', id: 'about' },
-    { label: 'Projects', id: 'projects' },
-    { label: 'Members', id: 'members' },
-    { label: 'Opportunities', id: 'opportunities' },
+    { label: 'About', id: 'about', isRoute: false },
+    { label: 'Projects', id: 'projects', isRoute: true },
+    { label: 'Members', id: 'members', isRoute: true },
+    { label: 'Opportunities', id: 'opportunities', isRoute: false },
   ]
 
   return (
@@ -181,15 +185,14 @@ function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-10 transition-all duration-700 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-50 hidden md:flex items-center justify-between px-6 lg:px-10 transition-all duration-700 ${scrolled
             ? 'py-4 bg-black/85 backdrop-blur-2xl border-b border-[#FFC20E]/10'
             : 'py-7 bg-transparent'
-        }`}
+          }`}
       >
         {/* LOGO */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        <Link
+          href="/"
           className="flex items-center gap-3 group"
         >
           <img
@@ -211,27 +214,40 @@ function Navbar() {
               NEXUS
             </span>
           </div>
-        </button>
+        </Link>
 
         {/* LINKS */}
-        <div className="flex items-center gap-1 bg-white/[0.04] border border-white/[0.08] rounded-full px-2 py-1.5 backdrop-blur-md">
-          {links.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => {
-                scrollTo(link.id)
-                setActiveLink(link.id)
-              }}
-              className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full ${
-                activeLink === link.id
-                  ? 'text-black bg-[#FFC20E]'
-                  : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
-              style={{ fontFamily: 'monospace' }}
-            >
-              {link.label}
-            </button>
-          ))}
+        <div className="flex items-center gap-1 bg-black/50 border border-white/10 rounded-full px-2 py-1.5 backdrop-blur-xl shadow-2xl">
+          {links.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.id}
+                href={`/${link.id}`}
+                className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border ${activeLink === link.id
+                    ? 'text-[#FFC20E] bg-white/5 border-[#FFC20E]/30 shadow-[0_0_15px_rgba(255,194,14,0.15)]'
+                    : 'text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10'
+                  }`}
+                style={{ fontFamily: 'monospace' }}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <button
+                key={link.id}
+                onClick={() => {
+                  scrollTo(link.id)
+                  setActiveLink(link.id)
+                }}
+                className={`relative px-3 lg:px-5 py-2 text-xs font-semibold tracking-widest uppercase transition-all duration-300 rounded-full border ${activeLink === link.id
+                    ? 'text-[#FFC20E] bg-white/5 border-[#FFC20E]/30 shadow-[0_0_15px_rgba(255,194,14,0.15)]'
+                    : 'text-gray-400 border-transparent hover:text-white hover:bg-white/5 hover:border-white/10'
+                  }`}
+                style={{ fontFamily: 'monospace' }}
+              >
+                {link.label}
+              </button>
+            )
+          )}
         </div>
 
         {/* Contact */}
@@ -253,9 +269,9 @@ function Navbar() {
       </motion.nav>
 
       {/* MOBILE NAV */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 bg-black/90 backdrop-blur-xl border-b border-white/5">
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-4 bg-black/90 backdrop-blur-xl border-b border-white/5 shadow-xl">
+        <Link
+          href="/"
           className="flex items-center gap-2"
         >
           <img
@@ -269,7 +285,7 @@ function Navbar() {
           >
             NEXUS
           </span>
-        </button>
+        </Link>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="p-2 flex flex-col gap-1.5"
@@ -297,18 +313,30 @@ function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden fixed top-14 left-0 right-0 z-40 bg-black border-b border-[#FFC20E]/10 overflow-hidden flex flex-col items-center py-8 gap-6"
+            className="md:hidden fixed top-14 left-0 right-0 z-40 bg-black/95 backdrop-blur-xl border-b border-[#FFC20E]/20 overflow-hidden flex flex-col items-center py-8 gap-6 shadow-2xl"
           >
-            {links.map((l) => (
-              <button
-                key={l.id}
-                onClick={() => scrollTo(l.id)}
-                className="text-gray-300 hover:text-[#FFC20E] text-xs tracking-widest uppercase transition-colors"
-                style={{ fontFamily: 'monospace' }}
-              >
-                {l.label}
-              </button>
-            ))}
+            {links.map((l) =>
+              l.isRoute ? (
+                <Link
+                  key={l.id}
+                  href={`/${l.id}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-gray-400 hover:text-[#FFC20E] text-xs tracking-widest uppercase transition-colors"
+                  style={{ fontFamily: 'monospace' }}
+                >
+                  {l.label}
+                </Link>
+              ) : (
+                <button
+                  key={l.id}
+                  onClick={() => scrollTo(l.id)}
+                  className="text-gray-400 hover:text-[#FFC20E] text-xs tracking-widest uppercase transition-colors"
+                  style={{ fontFamily: 'monospace' }}
+                >
+                  {l.label}
+                </button>
+              )
+            )}
             <button
               onClick={() => scrollTo('contact')}
               className="border border-[#FFC20E] text-[#FFC20E] text-xs px-8 py-2.5 tracking-widest uppercase"
@@ -323,13 +351,11 @@ function Navbar() {
   )
 }
 
-// ============================================
-// SCROLLING TICKER
-// ============================================
+
 function Ticker() {
   const items = [
     'KIIT NEXUS',
-    'BUILD · SHIP · REPEAT',
+    'INNOVATE · BUILD · REPEAT',
     'CAMPUS-EXCLUSIVE',
     'WHERE AMBITION MEETS OPPORTUNITY',
     'JOIN THE ECOSYSTEM',
@@ -358,9 +384,7 @@ function Ticker() {
   )
 }
 
-// ============================================
-// SPOTLIGHT BUTTON
-// ============================================
+
 interface SpotlightButtonProps {
   children: React.ReactNode
   onClick?: () => void
@@ -401,9 +425,7 @@ function SpotlightButton({
   )
 }
 
-// ============================================
-// HERO — RESPONSIVE
-// ============================================
+
 function Hero({ imgIndex }: { imgIndex: number }) {
   const { scrollY } = useScroll()
   const yText = useTransform(scrollY, [0, 500], [0, -80])
@@ -425,16 +447,16 @@ function Hero({ imgIndex }: { imgIndex: number }) {
             key={imgIndex}
             src={HERO_IMAGES[imgIndex]}
             initial={{ opacity: 0, scale: 1.06 }}
-            animate={{ opacity: 0.35, scale: 1 }}
+            animate={{ opacity: 0.75, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 1.8, ease: 'easeInOut' }}
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover object-top brightness-125 contrast-110"
           />
         </AnimatePresence>
         {/* left fade */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
         {/* bottom fade */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
         {/* top fade for mobile */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent md:hidden" />
       </motion.div>
@@ -484,9 +506,8 @@ function Hero({ imgIndex }: { imgIndex: number }) {
                 }}
               >
                 <span
-                  className={`block font-black leading-[0.88] tracking-tight ${
-                    i === 1 ? 'text-[#FFC20E]' : 'text-white'
-                  }`}
+                  className={`block font-black leading-[0.88] tracking-tight ${i === 1 ? 'text-[#FFC20E]' : 'text-white'
+                    }`}
                   style={{
                     fontFamily: "'DM Sans', 'Helvetica Neue', sans-serif",
                     fontSize: 'clamp(1.6rem, 8.5vw, 8.5rem)',
@@ -617,9 +638,7 @@ function Hero({ imgIndex }: { imgIndex: number }) {
   )
 }
 
-// ============================================
-// ABOUT SECTION
-// ============================================
+
 function About() {
   return (
     <section
@@ -652,9 +671,9 @@ function About() {
               <span className="text-[#FFC20E]">KIIT Nexus</span>?
             </h2>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-              KIIT Nexus is a campus-exclusive digital ecosystem connecting
-              students, builders and innovators inside KIIT. We build real
-              products, ship them, and help each other grow.
+              KIIT Nexus is a campus-exclusive innovation community at KIIT
+              where passionate students come together to build impactful projects,
+              learn practically, and support each other&#39;s growth.
             </p>
           </motion.div>
         </div>
@@ -696,9 +715,6 @@ function About() {
   )
 }
 
-// ============================================
-// GROUP PHOTO
-// ============================================
 function GroupPhoto() {
   return (
     <section className="relative w-full bg-black py-6 md:py-10 px-4 md:px-16 flex justify-center z-20">
@@ -742,9 +758,7 @@ function GroupPhoto() {
   )
 }
 
-// ============================================
-// PROJECTS
-// ============================================
+
 const projectData = [
   {
     title: 'KIIT QUEST',
@@ -822,7 +836,7 @@ function Projects() {
             className="text-gray-500 text-sm max-w-xs"
             style={{ fontFamily: 'monospace' }}
           >
-            Real products built by Nexus members. Ship something meaningful.
+            Real products built by Nexus members. Build something meaningful.
           </p>
         </div>
       </motion.div>
@@ -837,10 +851,9 @@ function Projects() {
             viewport={{ once: true }}
             whileHover={{ y: -8, transition: { duration: 0.3 } }}
             className={`group relative p-6 md:p-8 border transition-all duration-500 overflow-hidden flex flex-col rounded-2xl backdrop-blur-xl
-              ${
-                project.isFeatured
-                  ? 'bg-[#FFC20E]/8 border-[#FFC20E]/30 hover:border-[#FFC20E]/70'
-                  : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/10'
+              ${project.isFeatured
+                ? 'bg-[#FFC20E]/8 border-[#FFC20E]/30 hover:border-[#FFC20E]/70'
+                : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/10'
               }`}
           >
             {project.isFeatured && (
@@ -867,11 +880,10 @@ function Projects() {
                   </div>
                 )}
                 <span
-                  className={`px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm border ${
-                    project.status === 'Live'
+                  className={`px-3 py-1 text-[10px] font-bold tracking-widest uppercase rounded-sm border ${project.status === 'Live'
                       ? 'bg-[#FFC20E] text-black border-[#FFC20E]'
                       : 'bg-white/5 text-gray-500 border-white/5'
-                  }`}
+                    }`}
                   style={{ fontFamily: 'monospace' }}
                 >
                   {project.status}
@@ -927,13 +939,28 @@ function Projects() {
           </motion.div>
         ))}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
+        viewport={{ once: true }}
+        className="mt-12 md:mt-16 flex justify-center"
+      >
+        <a href="/projects">
+          <SpotlightButton
+            className="px-6 md:px-8 py-3 md:py-4 border border-white/20 text-white font-bold text-xs md:text-sm tracking-widest uppercase rounded-sm backdrop-blur-sm transition-colors"
+            overlayColor="rgba(255,194,14,0.15)"
+          >
+            <span className="group-hover:text-black transition-colors">Show More Projects ➔</span>
+          </SpotlightButton>
+        </a>
+      </motion.div>
     </section>
   )
 }
 
-// ============================================
-// MAIN LANDING
-// ============================================
+
 export default function Landing() {
   const [index, setIndex] = useState(0)
 
@@ -956,7 +983,7 @@ export default function Landing() {
       <About />
       <GroupPhoto />
       <Projects />
-      <Members isHomepage={true} />
+      <Members />
       <Contact />
     </div>
   )
