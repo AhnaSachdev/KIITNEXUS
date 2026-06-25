@@ -36,7 +36,7 @@ const IMAGES = {
   member1:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1772684284/Screenshot_2026-03-05_094727_o2jdwo.png',
   member2:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780502303/8ccde8a8-6db9-4620-adad-799a352e53ca.png', // Anushree Saxena
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780502303/8ccde8a8-6db9-4620-adad-799a352e53ca.png',
   member3:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408452/ANUSKA_SINHA_MEMBER_WEB_DEV_tipyrt.png',
   member4:
@@ -44,13 +44,13 @@ const IMAGES = {
   member5:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1771408454/SHRIMI_MEMBER_ML_mdn7yf.png',
   member6:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png', // Broadcasting Team (Sipra Mishra)
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1773025216/dac68986-e609-4656-ab9b-7b56c3c8b51e.png',
   member7:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055531/409536f4-94ae-445d-bc8d-4226da1d4608.png', // Aditya Tiwari
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055531/409536f4-94ae-445d-bc8d-4226da1d4608.png',
   member8:
     'https://res.cloudinary.com/dejfuiizz/image/upload/v1778032744/astha_kashyap_f99kuh.png',
   member10:
-    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055945/d37efd9d-d418-4fdc-a776-0aa64f1a4801.png', // Shruti Jha
+    'https://res.cloudinary.com/da9zvp0mu/image/upload/v1778055945/d37efd9d-d418-4fdc-a776-0aa64f1a4801.png',
   member11:
     'https://res.cloudinary.com/da9zvp0mu/image/upload/v1780556222/a1916b60-560f-465e-a324-425b28b47810.png',
   member12:
@@ -300,7 +300,6 @@ const members = [
     mail: '2405784@kiit.ac.in',
     instagram: 'https://www.instagram.com/ahnasachdev/',
   },
-
   {
     name: 'Gungun Raj',
     role: 'Broadcasting',
@@ -310,8 +309,6 @@ const members = [
     mail: '2405279@kiit.ac.in',
     instagram: 'https://www.instagram.com/gungun_raj_19?igsh=MTN5aHNidGc1NTYzbA%3D%3D&utm_source=qr',
   },
-
-  
 ]
 
 // All portrait images collected for the hero strip
@@ -530,7 +527,7 @@ const getDomainLabel = (role: string) =>
   role.replace(' Lead', '').replace('Designer', 'Design')
 
 const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex items-center gap-4 mb-10">
+  <div className="flex items-center gap-4 mb-10 mt-6">
     <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
     <span
       className="text-xs font-bold tracking-[0.3em] uppercase text-gray-500 px-4 py-1.5 border border-white/10 rounded-full"
@@ -596,6 +593,7 @@ export default function Members({
   isHomepage?: boolean
 }) {
   const [domainFilter, setDomainFilter] = useState<DomainFilter>('both')
+  const [showAllMembers, setShowAllMembers] = useState(false)
 
   if (isHomepage) {
     return (
@@ -644,7 +642,7 @@ export default function Members({
           </div>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-8 w-full">
+        <div className="flex flex-wrap justify-center gap-8 w-full mb-12">
           {founders.map((f, i) => (
             <FounderCard key={i} {...f} />
           ))}
@@ -655,7 +653,7 @@ export default function Members({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-12 flex justify-center w-full"
+          className="flex justify-center w-full"
         >
           <Link
             href="/members"
@@ -680,7 +678,7 @@ export default function Members({
     )
   }
 
-  // Full /members page
+  // Full /members page with expand/collapse logic
   const showTech = domainFilter === 'both' || domainFilter === 'tech'
   const showNonTech = domainFilter === 'both' || domainFilter === 'nontech'
 
@@ -691,7 +689,6 @@ export default function Members({
     >
       {/* ── HERO SECTION ── */}
       <div className="w-full relative overflow-hidden pt-24 pb-0">
-        {/* Subtle grid overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -741,16 +738,14 @@ export default function Members({
           </motion.div>
         </div>
 
-        {/* Scrolling portrait strip */}
         <HeroStrip />
-
-        {/* Stat pills */}
       </div>
 
       {/* ── MAIN CONTENT ── */}
       <div className="max-w-7xl mx-auto px-4 md:px-16 w-full pb-32 flex flex-col items-center">
+        
         {/* ── FOUNDERS ── */}
-        <div className="w-full mb-20">
+        <div className="w-full mb-12">
           <SectionLabel>Leadership</SectionLabel>
           <div className="flex flex-wrap justify-center gap-8">
             {founders.map((f, i) => (
@@ -759,131 +754,160 @@ export default function Members({
           </div>
         </div>
 
-        {/* ── TECHNICAL HEADS ── */}
-        <div className="w-full mb-20">
-          <SectionLabel>Technical Heads</SectionLabel>
-          <div className="flex flex-wrap justify-center gap-6">
-            {techHeads.map((h, i) => (
-              <MemberCard key={i} {...h} delay={i * 0.1} />
-            ))}
-          </div>
-        </div>
-
-        {/* ── DOMAIN FILTER TABS ── */}
-        <div className="w-full mb-12">
-          <div className="flex justify-center">
-            <div className="inline-flex gap-1 bg-white/[0.04] border border-white/10 rounded-full p-1.5 backdrop-blur-xl">
-              {(
-                [
-                  { key: 'both', label: 'All Domains' },
-                  { key: 'tech', label: 'Technical' },
-                  { key: 'nontech', label: 'Non-Technical' },
-                ] as { key: DomainFilter; label: string }[]
-              ).map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setDomainFilter(tab.key)}
-                  className={`relative px-5 py-2 text-xs font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
-                    domainFilter === tab.key
-                      ? 'text-black bg-[#FFC20E] shadow-[0_0_20px_rgba(255,194,14,0.3)]'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                  style={{ fontFamily: 'monospace' }}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── DOMAINS ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={domainFilter}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35 }}
-            className="w-full flex flex-col gap-16"
+        {/* ── TOGGLE BUTTON ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="w-full flex justify-center mb-16"
+        >
+          <button
+            onClick={() => setShowAllMembers(!showAllMembers)}
+            className="group flex items-center gap-3 px-6 md:px-8 py-3 md:py-4 border border-[#FFC20E]/50 text-[#FFC20E] hover:text-black font-bold text-xs md:text-sm tracking-widest uppercase rounded-sm hover:bg-[#FFC20E] transition-all duration-300 shadow-[0_0_15px_rgba(255,194,14,0.1)] hover:shadow-[0_0_25px_rgba(255,194,14,0.4)]"
+            style={{ fontFamily: 'monospace' }}
           >
-            {showTech && (
-              <div className="w-full">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="h-px w-6 bg-[#FFC20E]" />
-                  <span
-                    className="text-[#FFC20E] text-xs font-bold tracking-[0.3em] uppercase"
-                    style={{ fontFamily: 'monospace' }}
-                  >
-                    Technical Domain
-                  </span>
-                  <div className="h-px flex-1 bg-white/8" />
-                </div>
-                <div className="flex flex-col gap-14">
-                  {techLeads.map((lead, li) => {
-                    const domainMembers = getDomainMembers(lead.role)
-                    return (
-                      <div key={li}>
-                        <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wide border-l-4 border-[#FFC20E] pl-4 mb-6">
-                          {getDomainLabel(lead.role)}
-                        </h4>
-                        <div className="flex flex-wrap gap-5">
-                          {/* Lead card slightly larger */}
-                          <div className="relative">
-                            <MemberCard {...lead} delay={0} />
-                            <div className="absolute -top-2 -right-2 text-[10px] font-black uppercase tracking-widest text-black bg-[#FFC20E] px-2 py-0.5 rounded-full">
-                              Lead
-                            </div>
-                          </div>
-                          {domainMembers.map((m, mi) => (
-                            <MemberCard key={mi} {...m} delay={mi * 0.08} />
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
+            {showAllMembers ? 'Show Less ↑' : 'View All Members ↓'}
+          </button>
+        </motion.div>
 
-            {showNonTech && (
-              <div className="w-full">
-                <div className="flex items-center gap-3 mb-8">
-                  <div className="h-px w-6 bg-gray-500" />
-                  <span
-                    className="text-gray-400 text-xs font-bold tracking-[0.3em] uppercase"
-                    style={{ fontFamily: 'monospace' }}
-                  >
-                    Non-Technical Domain
-                  </span>
-                  <div className="h-px flex-1 bg-white/8" />
-                </div>
-                <div className="flex flex-col gap-14">
-                  {nonTechLeads.map((lead, li) => {
-                    const domainMembers = getDomainMembers(lead.role)
-                    return (
-                      <div key={li}>
-                        <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wide border-l-4 border-gray-600 pl-4 mb-6">
-                          {getDomainLabel(lead.role)}
-                        </h4>
-                        <div className="flex flex-wrap gap-5">
-                          <div className="relative">
-                            <MemberCard {...lead} delay={0} />
-                            <div className="absolute -top-2 -right-2 text-[10px] font-black uppercase tracking-widest text-black bg-gray-300 px-2 py-0.5 rounded-full">
-                              Lead
-                            </div>
-                          </div>
-                          {domainMembers.map((m, mi) => (
-                            <MemberCard key={mi} {...m} delay={mi * 0.08} />
-                          ))}
-                        </div>
-                      </div>
-                    )
-                  })}
+        {/* ── EXPANDABLE SECTIONS ── */}
+        <AnimatePresence>
+          {showAllMembers && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full overflow-hidden"
+            >
+              {/* ── TECHNICAL HEADS ── */}
+              <div className="w-full mb-20">
+                <SectionLabel>Technical Heads</SectionLabel>
+                <div className="flex flex-wrap justify-center gap-6">
+                  {techHeads.map((h, i) => (
+                    <MemberCard key={i} {...h} delay={i * 0.1} />
+                  ))}
                 </div>
               </div>
-            )}
-          </motion.div>
+
+              {/* ── DOMAIN FILTER TABS ── */}
+              <div className="w-full mb-12">
+                <div className="flex justify-center">
+                  <div className="inline-flex gap-1 bg-white/[0.04] border border-white/10 rounded-full p-1.5 backdrop-blur-xl">
+                    {(
+                      [
+                        { key: 'both', label: 'All Domains' },
+                        { key: 'tech', label: 'Technical' },
+                        { key: 'nontech', label: 'Non-Technical' },
+                      ] as { key: DomainFilter; label: string }[]
+                    ).map((tab) => (
+                      <button
+                        key={tab.key}
+                        onClick={() => setDomainFilter(tab.key)}
+                        className={`relative px-5 py-2 text-xs font-bold tracking-widest uppercase rounded-full transition-all duration-300 ${
+                          domainFilter === tab.key
+                            ? 'text-black bg-[#FFC20E] shadow-[0_0_20px_rgba(255,194,14,0.3)]'
+                            : 'text-gray-400 hover:text-white'
+                        }`}
+                        style={{ fontFamily: 'monospace' }}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* ── DOMAINS ── */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={domainFilter}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35 }}
+                  className="w-full flex flex-col gap-16"
+                >
+                  {showTech && (
+                    <div className="w-full">
+                      <div className="flex items-center gap-3 mb-8">
+                        <div className="h-px w-6 bg-[#FFC20E]" />
+                        <span
+                          className="text-[#FFC20E] text-xs font-bold tracking-[0.3em] uppercase"
+                          style={{ fontFamily: 'monospace' }}
+                        >
+                          Technical Domain
+                        </span>
+                        <div className="h-px flex-1 bg-white/8" />
+                      </div>
+                      <div className="flex flex-col gap-14">
+                        {techLeads.map((lead, li) => {
+                          const domainMembers = getDomainMembers(lead.role)
+                          return (
+                            <div key={li}>
+                              <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wide border-l-4 border-[#FFC20E] pl-4 mb-6">
+                                {getDomainLabel(lead.role)}
+                              </h4>
+                              <div className="flex flex-wrap gap-5">
+                                {/* Lead card */}
+                                <div className="relative">
+                                  <MemberCard {...lead} delay={0} />
+                                  <div className="absolute -top-2 -right-2 text-[10px] font-black uppercase tracking-widest text-black bg-[#FFC20E] px-2 py-0.5 rounded-full z-10 shadow-lg">
+                                    Lead
+                                  </div>
+                                </div>
+                                {domainMembers.map((m, mi) => (
+                                  <MemberCard key={mi} {...m} delay={mi * 0.08} />
+                                ))}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {showNonTech && (
+                    <div className="w-full">
+                      <div className="flex items-center gap-3 mb-8">
+                        <div className="h-px w-6 bg-gray-500" />
+                        <span
+                          className="text-gray-400 text-xs font-bold tracking-[0.3em] uppercase"
+                          style={{ fontFamily: 'monospace' }}
+                        >
+                          Non-Technical Domain
+                        </span>
+                        <div className="h-px flex-1 bg-white/8" />
+                      </div>
+                      <div className="flex flex-col gap-14">
+                        {nonTechLeads.map((lead, li) => {
+                          const domainMembers = getDomainMembers(lead.role)
+                          return (
+                            <div key={li}>
+                              <h4 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wide border-l-4 border-gray-600 pl-4 mb-6">
+                                {getDomainLabel(lead.role)}
+                              </h4>
+                              <div className="flex flex-wrap gap-5">
+                                <div className="relative">
+                                  <MemberCard {...lead} delay={0} />
+                                  <div className="absolute -top-2 -right-2 text-[10px] font-black uppercase tracking-widest text-black bg-gray-300 px-2 py-0.5 rounded-full z-10 shadow-lg">
+                                    Lead
+                                  </div>
+                                </div>
+                                {domainMembers.map((m, mi) => (
+                                  <MemberCard key={mi} {...m} delay={mi * 0.08} />
+                                ))}
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     </section>

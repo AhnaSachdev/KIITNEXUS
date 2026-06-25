@@ -176,7 +176,7 @@ function Navbar() {
     { label: 'About', id: 'about', isRoute: false },
     { label: 'Projects', id: 'projects', isRoute: true },
     { label: 'Members', id: 'members', isRoute: true },
-    { label: 'Opportunities', id: 'opportunities', isRoute: false },
+    { label: 'Opportunities', id: 'opportunities', isRoute: true },
   ]
 
   return (

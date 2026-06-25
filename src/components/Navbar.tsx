@@ -1,15 +1,31 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 export default function Navbar() {
+  const pathname = usePathname()
+  const router = useRouter()
+
   const scrollToSection = (id: string) => {
+    // If not on the homepage, route back to the homepage section
+    if (pathname !== '/') {
+      router.push(`/#${id}`)
+      return
+    }
+    
+    // If on the homepage, smooth scroll to the section
     const el = document.getElementById(id)
     if (!el) return
     el.scrollIntoView({ behavior: 'smooth' })
   }
 
   const scrollToTop = () => {
+    if (pathname !== '/') {
+      router.push('/')
+      return
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -32,33 +48,36 @@ export default function Navbar() {
       <div className="hidden md:flex gap-6 text-sm text-gray-300">
         <button
           onClick={() => scrollToSection('about')}
-          className="hover:text-white"
+          className="hover:text-white transition-colors"
         >
           About
         </button>
         <button
           onClick={() => scrollToSection('events')}
-          className="hover:text-white"
+          className="hover:text-white transition-colors"
         >
           Events
         </button>
         <button
           onClick={() => scrollToSection('community')}
-          className="hover:text-white"
+          className="hover:text-white transition-colors"
         >
           Community
         </button>
-        <button
-          onClick={() => scrollToSection('opportunities')}
-          className="hover:text-white"
+        
+        {/* Updated to a Next.js Link for the new page */}
+        <Link
+          href="/opportunities"
+          className="hover:text-white transition-colors"
         >
           Opportunities
-        </button>
+        </Link>
       </div>
 
       <button className="ml-4 px-5 py-2 rounded-full bg-yellow-500 text-black text-sm font-semibold hover:bg-yellow-400 transition">
         Login
       </button>
+
     </motion.nav>
   )
 }
