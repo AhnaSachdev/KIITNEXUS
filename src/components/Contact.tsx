@@ -240,34 +240,6 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
-                <FaPhoneAlt
-                  className="mt-1 text-xl text-[#FFC20E]"
-                  aria-hidden
-                />
-                <div>
-                  <div className="font-medium text-white">Phone</div>
-                  <a
-                    href="tel:+919876543210"
-                    className="text-gray-300 hover:text-white transition"
-                  >
-                    +91 98765 43210
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <MdLocationOn
-                  className="mt-1 text-xl text-[#FFC20E]"
-                  aria-hidden
-                />
-                <div>
-                  <div className="font-medium text-white">Office</div>
-                  <div className="text-gray-300">
-                    KIIT Campus, Bhubaneswar, Odisha, India
-                  </div>
-                </div>
-              </div>
 
               <div className="pt-2">
                 <div className="font-medium text-white">Follow Us</div>
